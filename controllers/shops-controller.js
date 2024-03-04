@@ -22,6 +22,7 @@ const getAllShops = async (req, res) => {
 
 const submitOrder = async (req, res) => {
   try {
+    console.log('Received order:', req.body);
     const { customer, items, total } = req.body;
 
     const order = new Order({
