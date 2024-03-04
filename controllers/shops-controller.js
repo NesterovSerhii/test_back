@@ -1,6 +1,7 @@
 import HttpError from '../helpers/HttpError.js';
 import { ctrlWrapper } from '../decorators/index.js';
 import { Shop } from '../models/Shop.js';
+import Order from '../models/Order.js';
 
 const getAllShops = async (req, res) => {
   const result = await Shop.find();
@@ -20,18 +21,26 @@ const getAllShops = async (req, res) => {
 };
 
 const submitOrder = async (req, res) => {
-  const { customer, items, total } = req.body;
+  try {
+    const { customer, items, total } = req.body;
 
-  // Save the order data to the database (assuming you have an Order model)
-  // Example: create an Order model and use it to save the order data
-  // const order = new Order({ customer, items, total });
-  // await order.save();
+    const order = new Order({
+      customer,
+      items,
+      total,
+    });
 
-  // For demonstration purposes, you can log the order data
-  console.log('Order Submitted:', { customer, items, total });
+    await order.save();
+    console.log('Order Submitted:', { customer, items, total });
 
-  res.json({ message: 'Order submitted successfully!' });
+    res.json({ message: 'Order submitted successfully!' });
+  } catch (error) {
+
+    console.error('Error submitting order:', error);
+    throw HttpError(500, 'Internal Server Error');
+  }
 };
+
 export default {
   getAllShops: ctrlWrapper(getAllShops),
   getShopById: ctrlWrapper(getShopById),
