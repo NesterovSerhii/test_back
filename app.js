@@ -20,6 +20,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json())
 app.use('/api/shops', shopsRouter);
+app.use('/api//submit-order', shopsRouter);
 app.use(handleNotFound);
 app.use(handleBadRequest);
 app.use(handleInternalServerError);
