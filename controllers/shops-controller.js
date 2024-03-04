@@ -30,8 +30,10 @@ const submitOrder = async (req, res) => {
       items,
       total,
     });
-
+    
     await order.save();
+    console.log('Order saved successfully.');
+
     console.log('Order Submitted:', { customer, items, total });
 
     res.json({ message: 'Order submitted successfully!' });

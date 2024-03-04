@@ -1,21 +1,49 @@
-import Joi from 'joi';
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
-const orderSchema = Joi.object({
-  customer: Joi.object({
-    name: Joi.string().required(),
-    email: Joi.string().email().required(),
-    phone: Joi.string().required(),
-    address: Joi.string().required(),
-  }).required(),
-  items: Joi.array().items(
-    Joi.object({
-      name: Joi.string().required(),
-      quantity: Joi.number().integer().min(1).required(),
-      price: Joi.number().min(0).required(),
-    })
-  ).required(),
-  total: Joi.number().min(0).required(),
+const orderSchema = new Schema({
+  customer: {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
+  },
+  items: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+        min: 1,
+      },
+      price: {
+        type: Number,
+        required: true,
+        min: 0,
+      },
+    },
+  ],
+  total: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
 });
 
-export default orderSchema;
+const Order = model('Order', orderSchema);
+
+export default Order;
