@@ -13,7 +13,7 @@ const app = express()
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
 app.use(logger(formatsLogger))
 const corsOptions = {
-  origin: ['http://localhost:3000', 'http://192.168.1.56:3000'],
+  origin: ['http://localhost:3000', 'http://192.168.1.56:3000', 'https://nesterovserhii.github.io'],
   credentials: true,
   optionSuccessStatus: 200,
 };
